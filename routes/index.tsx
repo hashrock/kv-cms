@@ -4,7 +4,6 @@ import { Head } from "$fresh/runtime.ts";
 import { Image, Post, State, User } from "🛠️/types.ts";
 import { getUserBySession, listImage, listPost } from "🛠️/db.ts";
 
-import { ButtonLink } from "🧱/Button.tsx";
 import { Header } from "🧱/Header.tsx";
 import { JSX } from "preact";
 import render from "../utils/markdown.ts";
@@ -44,19 +43,6 @@ export default function Home(props: PageProps<Data>) {
   );
 }
 
-function LinkButton(
-  props: JSX.HTMLAttributes<HTMLAnchorElement>,
-) {
-  return (
-    <a
-      {...props}
-      class={`inline-block cursor-pointer px-3 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 ${
-        props.class ?? ""
-      }`}
-    />
-  );
-}
-
 function SignedIn(props: SignedInData) {
   const user = props.user ?? null;
   const userId = user?.id ?? null;
@@ -65,9 +51,9 @@ function SignedIn(props: SignedInData) {
     <>
       <div class="">
         <div class="mt-16 flex justify-end">
-          <LinkButton href="/new">
+          <a href="/new">
             Create New
-          </LinkButton>
+          </a>
         </div>
         <ul class="space-y-3 mt-8">
           {props.posts.map((post) => {
