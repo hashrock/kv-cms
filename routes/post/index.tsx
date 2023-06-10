@@ -1,8 +1,8 @@
 import { Handlers } from "$fresh/server.ts";
-import { addMemo, getUserBySession } from "🛠️/db.ts";
-import { Memo, State, User } from "🛠️/types.ts";
+import { addPost, getUserBySession } from "🛠️/db.ts";
+import { Post, State, User } from "🛠️/types.ts";
 interface Data {
-  memo: Memo;
+  post: Post;
   user: User | null;
 }
 export const handler: Handlers<Data, State> = {
@@ -22,7 +22,7 @@ export const handler: Handlers<Data, State> = {
       return new Response("Bad Request", { status: 400 });
     }
 
-    await addMemo(user.id, title, body);
+    await addPost(title, body, user.id);
 
     return redirect();
   },

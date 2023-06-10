@@ -4,9 +4,9 @@
  * synchronization between clients.
  */
 
-import { Image, Memo, User } from "./types.ts";
+import { Image, Post, User } from "./types.ts";
 import * as blob from "https://deno.land/x/kv_toolbox@0.0.2/blob.ts";
-
+import { ulid } from "https://deno.land/x/ulid@v0.2.0/mod.ts";
 const kv = await Deno.openKv();
 
 export async function setUserWithSession(user: User, session: string) {
@@ -15,7 +15,6 @@ export async function setUserWithSession(user: User, session: string) {
     .set(["users", user.id], user)
     .set(["users_by_login", user.login], user)
     .set(["users_by_session", session], user)
-    .set(["users_by_last_signin", new Date().toISOString(), user.id], user)
     .commit();
 }
 
@@ -51,7 +50,7 @@ export function getImageData(uuid: string) {
 }
 
 export async function addImage(uid: string, data: File) {
-  const uuid = Math.random().toString(36).slice(2);
+  const uuid = ulid();
   const image: Image = {
     id: uuid,
     uid,
@@ -87,61 +86,51 @@ export async function deleteImage(uid: string, id: string) {
   await kv.delete(["images", uid, id]);
 }
 
-export async function addMemo(uid: string, title: string, body: string) {
-  const uuid = Math.random().toString(36).slice(2);
-  const memo: Memo = {
+export async function addPost(
+  title: string,
+  body: string,
+  authorId: string,
+) {
+  const uuid = ulid();
+  const post: Post = {
     id: uuid,
     title,
     body,
+    authorId,
     createdAt: new Date(),
     updatedAt: new Date(),
   };
-  await kv.set(["memos", uid, uuid], memo);
+  await kv.set(["posts", uuid], post);
 }
 
-export async function listMemo(uid: string) {
-  const iter = await kv.list<Memo>({ prefix: ["memos", uid] });
-  const memos: Memo[] = [];
+export async function listPost(uid: string) {
+  const iter = await kv.list<Post>({ prefix: ["posts", uid] });
+  const posts: Post[] = [];
   for await (const item of iter) {
-    memos.push(item.value);
+    posts.push(item.value);
   }
-  return memos;
+  return posts;
 }
 
-export async function getMemo(uid: string, id: string) {
-  const res = await kv.get<Memo>(["memos", uid, id]);
+export async function getPost(id: string) {
+  const res = await kv.get<Post>(["posts", id]);
   return res.value;
 }
 
-export async function updateMemo(
+export async function updatePost(
   uid: string,
   id: string,
   title: string,
   body: string,
 ) {
-  const memo = await getMemo(uid, id);
-  if (!memo) throw new Error("memo not found");
-  memo.title = title;
-  memo.body = body;
-  memo.updatedAt = new Date();
-  await kv.set(["memos", uid, id], memo);
+  const post = await getPost(id);
+  if (!post) throw new Error("memo not found");
+  post.title = title;
+  post.body = body;
+  post.updatedAt = new Date();
+  await kv.set(["posts", uid, id], post);
 }
 
-export async function deleteMemo(uid: string, id: string) {
-  await kv.delete(["memos", uid, id]);
-}
-
-export async function listRecentlySignedInUsers(): Promise<User[]> {
-  const users = [];
-  const iter = kv.list<User>(
-    { prefix: ["users_by_last_signin"] },
-    {
-      limit: 10,
-      reverse: true,
-    },
-  );
-  for await (const { value } of iter) {
-    users.push(value);
-  }
-  return users;
+export async function deletePost(id: string) {
+  await kv.delete(["posts", id]);
 }

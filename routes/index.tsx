@@ -1,13 +1,8 @@
 import { HandlerContext, PageProps } from "$fresh/server.ts";
 import { Head } from "$fresh/runtime.ts";
 
-import { Image, Memo, State, User } from "🛠️/types.ts";
-import {
-  getUserBySession,
-  listImage,
-  listMemo,
-  listRecentlySignedInUsers,
-} from "🛠️/db.ts";
+import { Image, Post, State, User } from "🛠️/types.ts";
+import { getUserBySession, listImage, listPost } from "🛠️/db.ts";
 
 import { ButtonLink } from "🧱/Button.tsx";
 import { Header } from "🧱/Header.tsx";
@@ -18,23 +13,19 @@ type Data = SignedInData | null;
 
 interface SignedInData {
   user: User;
-  users: User[];
-  memos: Memo[];
+  posts: Post[];
   images: Image[];
 }
 
 export async function handler(req: Request, ctx: HandlerContext<Data, State>) {
   if (!ctx.state.session) return ctx.render(null);
 
-  const [user, users] = await Promise.all([
-    getUserBySession(ctx.state.session),
-    listRecentlySignedInUsers(),
-  ]);
+  const user = await getUserBySession(ctx.state.session);
   if (!user) return ctx.render(null);
 
-  const memos = await listMemo(user.id);
+  const posts = await listPost(user.id);
   const images = await listImage(user.id);
-  return ctx.render({ user, users, memos, images });
+  return ctx.render({ user, posts, images });
 }
 
 export default function Home(props: PageProps<Data>) {
@@ -79,20 +70,20 @@ function SignedIn(props: SignedInData) {
           </LinkButton>
         </div>
         <ul class="space-y-3 mt-8">
-          {props.memos.map((memo) => {
+          {props.posts.map((post) => {
             return (
               <li>
                 <a
                   class="block bg-white py-6 px-8 shadow rounded hover:shadow-lg transition duration-200 border-l-8 border-gray-400"
-                  href={`/memo/${memo?.id}`}
+                  href={`/post/${post?.id}`}
                 >
                   <h2 class="text-lg">
-                    {memo?.title}
+                    {post?.title}
                   </h2>
 
                   <p
                     class="text-sm text-gray-500"
-                    dangerouslySetInnerHTML={{ __html: render(memo?.body) }}
+                    dangerouslySetInnerHTML={{ __html: render(post?.body) }}
                   >
                   </p>
                 </a>

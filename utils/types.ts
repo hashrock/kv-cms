@@ -7,13 +7,14 @@ export interface User {
   login: string;
   name: string;
   avatarUrl: string;
-  memos?: string[];
+  editor: boolean;
 }
 
-export interface Memo {
+export interface Post {
   id: string;
   title: string;
   body: string;
+  authorId: string;
   createdAt: Date;
   updatedAt: Date;
 }
