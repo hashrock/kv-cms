@@ -87,7 +87,7 @@ export default function Home(props: PageProps<Data>) {
 
           <form
             class="mt-16 flex flex-col"
-            action={`/memo/${post.id}`}
+            action={`/post/${post.id}`}
             method="POST"
           >
             <div>
@@ -116,7 +116,7 @@ export default function Home(props: PageProps<Data>) {
           </form>
 
           <form
-            action={`/memo/${post.id}`}
+            action={`/post/${post.id}`}
             method="POST"
             class="flex justify-center"
           >

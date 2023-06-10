@@ -32,7 +32,7 @@ export default function Home(props: PageProps<Data>) {
         <div class="px-4 py-8 mx-auto max-w-screen-md">
           <Header user={user} />
 
-          <form action={`/memo`} method="POST" class="mt-16 flex flex-col">
+          <form action={`/post`} method="POST" class="mt-16 flex flex-col">
             <div>
               <input
                 class="w-full  px-3 py-2  border-1 rounded"

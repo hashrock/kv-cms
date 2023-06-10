@@ -103,8 +103,8 @@ export async function addPost(
   await kv.set(["posts", uuid], post);
 }
 
-export async function listPost(uid: string) {
-  const iter = await kv.list<Post>({ prefix: ["posts", uid] });
+export async function listPost() {
+  const iter = await kv.list<Post>({ prefix: ["posts"] });
   const posts: Post[] = [];
   for await (const item of iter) {
     posts.push(item.value);
@@ -124,7 +124,7 @@ export async function updatePost(
   body: string,
 ) {
   const post = await getPost(id);
-  if (!post) throw new Error("memo not found");
+  if (!post) throw new Error("post not found");
   post.title = title;
   post.body = body;
   post.updatedAt = new Date();

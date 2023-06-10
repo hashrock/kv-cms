@@ -12,9 +12,9 @@ import * as $5 from "./routes/auth/signout.ts";
 import * as $6 from "./routes/image/[uid]/[id].tsx";
 import * as $7 from "./routes/image/[uid]/index.tsx";
 import * as $8 from "./routes/index.tsx";
-import * as $9 from "./routes/memo/[id].tsx";
-import * as $10 from "./routes/memo/index.tsx";
-import * as $11 from "./routes/new.tsx";
+import * as $9 from "./routes/new.tsx";
+import * as $10 from "./routes/post/[id].tsx";
+import * as $11 from "./routes/post/index.tsx";
 import * as $$0 from "./islands/ImageConvert.tsx";
 import * as $$1 from "./islands/TextArea.tsx";
 
@@ -29,9 +29,9 @@ const manifest = {
     "./routes/image/[uid]/[id].tsx": $6,
     "./routes/image/[uid]/index.tsx": $7,
     "./routes/index.tsx": $8,
-    "./routes/memo/[id].tsx": $9,
-    "./routes/memo/index.tsx": $10,
-    "./routes/new.tsx": $11,
+    "./routes/new.tsx": $9,
+    "./routes/post/[id].tsx": $10,
+    "./routes/post/index.tsx": $11,
   },
   islands: {
     "./islands/ImageConvert.tsx": $$0,

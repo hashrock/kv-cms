@@ -23,7 +23,7 @@ export async function handler(req: Request, ctx: HandlerContext<Data, State>) {
   const user = await getUserBySession(ctx.state.session);
   if (!user) return ctx.render(null);
 
-  const posts = await listPost(user.id);
+  const posts = await listPost();
   const images = await listImage(user.id);
   return ctx.render({ user, posts, images });
 }
@@ -32,7 +32,7 @@ export default function Home(props: PageProps<Data>) {
   return (
     <>
       <Head>
-        <title>KV NotePad</title>
+        <title>KV CMS</title>
       </Head>
       <body class="bg-gray-100">
         <div class="px-4 py-8 mx-auto max-w-screen-md">

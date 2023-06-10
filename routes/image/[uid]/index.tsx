@@ -1,8 +1,8 @@
 import { Handlers } from "$fresh/server.ts";
 import { addImage, getUserBySession } from "🛠️/db.ts";
-import { Image, Memo, State, User } from "🛠️/types.ts";
+import { Image, Post, State, User } from "🛠️/types.ts";
 import { HandlerContext, PageProps } from "$fresh/server.ts";
-import { listImage, listMemo, listRecentlySignedInUsers } from "🛠️/db.ts";
+import { listImage, listPost } from "🛠️/db.ts";
 import { Head } from "$fresh/runtime.ts";
 import { Header } from "🧱/Header.tsx";
 interface SignedInData {
