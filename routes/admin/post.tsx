@@ -1,13 +1,12 @@
 import { HandlerContext, PageProps } from "$fresh/server.ts";
-import { Head } from "$fresh/runtime.ts";
 
 import { Image, Post, State, User } from "🛠️/types.ts";
 import { getUserBySession, listImage, listPost } from "🛠️/db.ts";
 
-import { Header } from "🧱/Header.tsx";
 import { Page } from "@/components/Page.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
+import PostList from "../../islands/PostList.tsx";
 
 type Data = SignedInData | null;
 
@@ -33,7 +32,7 @@ export default function Home(props: PageProps<Data>) {
   return (
     <Page user={props.data?.user}>
       <Layout left={nav}>
-        Posts
+        <PostList collection="post" />
       </Layout>
     </Page>
   );

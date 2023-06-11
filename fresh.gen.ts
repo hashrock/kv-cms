@@ -22,7 +22,8 @@ import * as $15 from "./routes/post/[id].tsx";
 import * as $16 from "./routes/post/index.tsx";
 import * as $$0 from "./islands/AdminPanel.tsx";
 import * as $$1 from "./islands/ImageConvert.tsx";
-import * as $$2 from "./islands/TextArea.tsx";
+import * as $$2 from "./islands/PostList.tsx";
+import * as $$3 from "./islands/TextArea.tsx";
 
 const manifest = {
   routes: {
@@ -47,7 +48,8 @@ const manifest = {
   islands: {
     "./islands/AdminPanel.tsx": $$0,
     "./islands/ImageConvert.tsx": $$1,
-    "./islands/TextArea.tsx": $$2,
+    "./islands/PostList.tsx": $$2,
+    "./islands/TextArea.tsx": $$3,
   },
   baseUrl: import.meta.url,
   config,
