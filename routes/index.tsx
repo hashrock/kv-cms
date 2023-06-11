@@ -4,97 +4,99 @@ import { Head } from "$fresh/runtime.ts";
 import { Image, Post, State, User } from "🛠️/types.ts";
 import { getUserBySession, listImage, listPost } from "🛠️/db.ts";
 
-import { Header } from "🧱/Header.tsx";
 import { JSX } from "preact";
 import render from "../utils/markdown.ts";
 
-type Data = SignedInData | null;
-
 interface SignedInData {
-  user: User;
+  user: User | null;
   posts: Post[];
   images: Image[];
 }
 
-export async function handler(req: Request, ctx: HandlerContext<Data, State>) {
-  if (!ctx.state.session) return ctx.render(null);
-
-  const user = await getUserBySession(ctx.state.session);
-  if (!user) return ctx.render(null);
+export async function handler(
+  req: Request,
+  ctx: HandlerContext<SignedInData, State>,
+) {
+  let user: User | null = null;
+  if (ctx.state.session) {
+    user = await getUserBySession(ctx.state.session);
+  }
 
   const posts = await listPost();
   const images = await listImage();
   return ctx.render({ user, posts, images });
 }
 
-export default function Home(props: PageProps<Data>) {
+export default function Home(props: PageProps<SignedInData>) {
   return (
     <>
       <Head>
         <title>KV CMS</title>
       </Head>
       <body class="bg-gray-100">
-        <div class="px-4 py-8 mx-auto max-w-screen-md">
-          <Header user={props.data?.user ?? null} />
-          {props.data ? <SignedIn {...props.data} /> : <SignedOut />}
+        {props.data?.user && (
+          <div class="bg-gray-900 text-gray-50">
+            <a href="/admin">
+              Admin Panel
+            </a>
+          </div>
+        )}
+        <div class="px-4 py-8 mx-auto max-w-screen-lg flex">
+          <Contents
+            class="flex-grow"
+            user={props.data.user}
+            images={props.data.images}
+            posts={props.data.posts}
+          />
+          <div class="flex-none w-64">
+            <h2 class="text-4xl">
+              About
+            </h2>
+            <div class="text-lg text-gray-500 mt-8">
+              <p>
+                This is a sample blog application for KV CMS.
+              </p>
+            </div>
+          </div>
         </div>
       </body>
     </>
   );
 }
 
-function SignedIn(props: SignedInData) {
+interface ContentsProps extends JSX.HTMLAttributes<HTMLDivElement> {
+  user: User | null;
+  images: Image[];
+  posts: Post[];
+}
+
+function Contents(props: ContentsProps) {
   const user = props.user ?? null;
   const userId = user?.id ?? null;
 
   return (
     <>
-      <div class="">
-        <div class="mt-16 flex justify-end">
-          <a href="/new">
-            Create New
-          </a>
-        </div>
+      <div class={props.class}>
         <ul class="space-y-3 mt-8">
           {props.posts.map((post) => {
             return (
               <li>
-                <a
-                  class="block bg-white py-6 px-8 shadow rounded hover:shadow-lg transition duration-200 border-l-8 border-gray-400"
-                  href={`/post/${post?.id}`}
-                >
-                  <h2 class="text-lg">
+                <div class=" p-8 border-b-1 border-gray-600">
+                  <h2 class="text-4xl">
                     {post?.title}
                   </h2>
 
-                  <p
-                    class="text-sm text-gray-500"
+                  <div
+                    class="text-lg text-gray-500 mt-8"
                     dangerouslySetInnerHTML={{ __html: render(post?.body) }}
                   >
-                  </p>
-                </a>
+                  </div>
+                </div>
               </li>
             );
           })}
         </ul>
-        <div class="mt-8">
-          <a href={`/image/${userId}`} class="text-blue-500 hover:underline">
-            Uploaded Images
-          </a>
-        </div>
       </div>
-    </>
-  );
-}
-
-function SignedOut() {
-  return (
-    <>
-      <p class="my-6">
-        <a href="/auth/signin">
-          Log in with GitHub
-        </a>
-      </p>
     </>
   );
 }
