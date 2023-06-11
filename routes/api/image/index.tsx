@@ -43,7 +43,7 @@ export const handler: Handlers<SignedInData, State> = {
     const user = await getUserBySession(ctx.state.session ?? "");
     if (!user) return new Response("Unauthorized", { status: 401 });
 
-    const images = await listImage(user.id);
+    const images = await listImage();
     return new Response(JSON.stringify(images));
   },
 };

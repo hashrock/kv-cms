@@ -60,11 +60,11 @@ export async function addImage(uid: string, data: File) {
     updatedAt: new Date(),
   };
   await addImageData(uuid, await data.arrayBuffer());
-  return { result: await kv.set(["images", uid, uuid], image), id: uuid };
+  return { result: await kv.set(["images", uuid], image), id: uuid };
 }
 
-export async function listImage(uid: string) {
-  const iter = await kv.list<Image>({ prefix: ["images", uid] });
+export async function listImage() {
+  const iter = await kv.list<Image>({ prefix: ["images"] });
   const images: Image[] = [];
   for await (const item of iter) {
     images.push(item.value);
@@ -72,18 +72,17 @@ export async function listImage(uid: string) {
   return images;
 }
 
-export async function getImage(uid: string, id: string) {
-  const res = await kv.get<Image>(["images", uid, id]);
+export async function getImage(id: string) {
+  const res = await kv.get<Image>(["images", id]);
   const body = await getImageData(id);
   return { meta: res.value, body };
 }
 
-export async function deleteImage(uid: string, id: string) {
-  const res = await kv.get<Image>(["images", uid, id]);
+export async function deleteImage(id: string) {
+  const res = await kv.get<Image>(["images", id]);
   if (res.value === null) throw new Error("image not found");
-  if (res.value.uid !== uid) throw new Error("owner not matched");
   await removeImageData(id);
-  await kv.delete(["images", uid, id]);
+  await kv.delete(["images", id]);
 }
 
 export async function addPost(

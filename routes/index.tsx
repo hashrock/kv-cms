@@ -23,7 +23,7 @@ export async function handler(req: Request, ctx: HandlerContext<Data, State>) {
   if (!user) return ctx.render(null);
 
   const posts = await listPost();
-  const images = await listImage(user.id);
+  const images = await listImage();
   return ctx.render({ user, posts, images });
 }
 
@@ -91,9 +91,9 @@ function SignedOut() {
   return (
     <>
       <p class="my-6">
-        <ButtonLink href="/auth/signin">
+        <a href="/auth/signin">
           Log in with GitHub
-        </ButtonLink>
+        </a>
       </p>
     </>
   );

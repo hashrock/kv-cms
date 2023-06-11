@@ -17,12 +17,7 @@ export const handler: Handlers<SignedInData, State> = {
     if (user === null) {
       return new Response("Unauthorized", { status: 401 });
     }
-    if (user.id !== ctx.params.uid) {
-      return new Response("Forbidden", { status: 403 });
-    }
-
     const file = form.get("image") as File | null;
-
     if (!file) {
       return new Response("Bad Request", { status: 400 });
     }
@@ -35,13 +30,13 @@ export const handler: Handlers<SignedInData, State> = {
 
     addImage(user.id, file);
 
-    return redirect(`/image/${user.id}`);
+    return redirect(`/image/`);
   },
   async GET(req, ctx) {
     const user = await getUserBySession(ctx.state.session ?? "");
     if (!user) return new Response("Unauthorized", { status: 401 });
 
-    const images = await listImage(user.id);
+    const images = await listImage();
     return ctx.render({ user, images });
   },
 };
@@ -68,7 +63,7 @@ export default function Home(props: PageProps<SignedInData>) {
           <div>
             <div>
               <form
-                action={`/image/${userId}`}
+                action={`/image`}
                 method="POST"
                 encType="multipart/form-data"
               >
@@ -82,7 +77,7 @@ export default function Home(props: PageProps<SignedInData>) {
 
             <div>
               {props.data.images.map((image) => {
-                const url = `/image/${image.uid}/${image.id}`;
+                const url = `/image/${image.id}`;
                 return (
                   <div>
                     <img
@@ -92,7 +87,7 @@ export default function Home(props: PageProps<SignedInData>) {
                       width="200"
                     />
                     <form
-                      action={`/image/${image.uid}/${image.id}`}
+                      action={`/image/${image.id}`}
                       method="POST"
                     >
                       <input type="hidden" name="_method" value="DELETE" />

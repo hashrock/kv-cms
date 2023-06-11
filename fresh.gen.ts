@@ -4,13 +4,13 @@
 
 import config from "./deno.json" assert { type: "json" };
 import * as $0 from "./routes/_middleware.tsx";
-import * as $1 from "./routes/api/image/[uid]/[id].tsx";
+import * as $1 from "./routes/api/image/[id].tsx";
 import * as $2 from "./routes/api/image/index.tsx";
 import * as $3 from "./routes/auth/oauth2callback.ts";
 import * as $4 from "./routes/auth/signin.ts";
 import * as $5 from "./routes/auth/signout.ts";
-import * as $6 from "./routes/image/[uid]/[id].tsx";
-import * as $7 from "./routes/image/[uid]/index.tsx";
+import * as $6 from "./routes/image/[id].tsx";
+import * as $7 from "./routes/image/index.tsx";
 import * as $8 from "./routes/index.tsx";
 import * as $9 from "./routes/new.tsx";
 import * as $10 from "./routes/post/[id].tsx";
@@ -21,13 +21,13 @@ import * as $$1 from "./islands/TextArea.tsx";
 const manifest = {
   routes: {
     "./routes/_middleware.tsx": $0,
-    "./routes/api/image/[uid]/[id].tsx": $1,
+    "./routes/api/image/[id].tsx": $1,
     "./routes/api/image/index.tsx": $2,
     "./routes/auth/oauth2callback.ts": $3,
     "./routes/auth/signin.ts": $4,
     "./routes/auth/signout.ts": $5,
-    "./routes/image/[uid]/[id].tsx": $6,
-    "./routes/image/[uid]/index.tsx": $7,
+    "./routes/image/[id].tsx": $6,
+    "./routes/image/index.tsx": $7,
     "./routes/index.tsx": $8,
     "./routes/new.tsx": $9,
     "./routes/post/[id].tsx": $10,
