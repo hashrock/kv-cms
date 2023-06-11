@@ -6,7 +6,7 @@ async function remove(
   uid: string,
   id: string,
 ) {
-  await deleteImage(uid, id);
+  await deleteImage(id);
   return redirect(`/image/${uid}`);
 }
 
