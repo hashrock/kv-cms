@@ -15,14 +15,14 @@ function Header(props: { user?: User }) {
               {props.user.name}
             </span>
 
-            <a class="text-blue-500 hover:text-blue-400" href="/auth/signout">
+            <a class="text-blue-300 hover:text-blue-400" href="/auth/signout">
               Log out
             </a>
           </div>
         )
         : (
           <>
-            <a class="text-blue-500 hover:text-blue-400" href="/auth/signin">
+            <a class="text-blue-300 hover:text-blue-400" href="/auth/signin">
               Log in
             </a>
           </>
@@ -31,14 +31,14 @@ function Header(props: { user?: User }) {
   );
 }
 
-export function Page(props: PageProps) {
+export function AdminPage(props: PageProps) {
   return (
     <div
       {...props}
-      class={"max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8" +
+      class={"" +
         (props.class ? " " + props.class : "")}
     >
-      <header class="text-right">
+      <header class="text-right bg-gray-800 text-white p-2">
         <Header user={props.user} />
       </header>
       <div>

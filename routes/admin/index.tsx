@@ -4,7 +4,7 @@ import { Head } from "$fresh/runtime.ts";
 import { Image, Post, State, User } from "🛠️/types.ts";
 import { getUserBySession, listImage, listPost } from "🛠️/db.ts";
 
-import { Page } from "@/components/Page.tsx";
+import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "../../components/Layout.tsx";
 
@@ -30,10 +30,12 @@ export async function handler(req: Request, ctx: HandlerContext<Data, State>) {
 export default function Home(props: PageProps<Data>) {
   const nav = <Nav current="index" />;
   return (
-    <Page user={props.data?.user}>
+    <AdminPage user={props.data?.user}>
       <Layout left={nav}>
-        Hello
+        <div class="p-8">
+          Hello
+        </div>
       </Layout>
-    </Page>
+    </AdminPage>
   );
 }

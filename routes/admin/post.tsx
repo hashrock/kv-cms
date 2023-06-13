@@ -3,7 +3,7 @@ import { HandlerContext, PageProps } from "$fresh/server.ts";
 import { Image, Post, State, User } from "🛠️/types.ts";
 import { getUserBySession, listImage, listPost } from "🛠️/db.ts";
 
-import { Page } from "@/components/Page.tsx";
+import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
 import PostList from "../../islands/PostList.tsx";
@@ -28,12 +28,14 @@ export async function handler(req: Request, ctx: HandlerContext<Data, State>) {
 }
 
 export default function Home(props: PageProps<Data>) {
-  const nav = <Nav current="index" />;
+  const nav = <Nav current="post" />;
   return (
-    <Page user={props.data?.user}>
+    <AdminPage user={props.data?.user}>
       <Layout left={nav}>
-        <PostList collection="post" />
+        <div class="p-8">
+          <PostList collection="post" />
+        </div>
       </Layout>
-    </Page>
+    </AdminPage>
   );
 }

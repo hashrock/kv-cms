@@ -11,7 +11,7 @@ export function Layout(props: PageProps) {
         (props.class ? " " + props.class : "")}
       {...props}
     >
-      <div class="flex-none">{props.left}</div>
+      <div class="flex-none bg-gray-800">{props.left}</div>
       <div class="flex-1">{props.children}</div>
     </div>
   );

@@ -14,16 +14,24 @@ export function Nav(props: PageProps) {
       href: "/admin/image",
       current: props.current === "image",
     },
+    {
+      name: "Pages",
+      href: "/admin/page",
+      current: props.current === "page",
+    },
   ];
 
   return (
     <div
       {...props}
     >
-      <ul class="flex flex-col">
+      <ul class="flex flex-col bg-gray-800">
         {menu.map((item) => (
-          <li class="bg-gray-800 text-white px-4 py-3">
-            <a href={item.href}>{item.name}</a>
+          <li
+            class={"bg-gray-800 text-white hover:bg-gray-700 border-gray-700 border-r-8 " +
+              (item.current ? "  border-blue-500" : "")}
+          >
+            <a class="block px-8 py-4" href={item.href}>{item.name}</a>
           </li>
         ))}
       </ul>
