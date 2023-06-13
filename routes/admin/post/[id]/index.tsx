@@ -114,7 +114,7 @@ export default function Home(props: PageProps<Data>) {
           </form>
 
           <form
-            action={`/admin//post/${post.id}`}
+            action={`/admin/post/${post.id}`}
             method="POST"
             class="flex justify-center"
           >
