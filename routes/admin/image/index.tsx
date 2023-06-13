@@ -1,10 +1,8 @@
 import { Handlers } from "$fresh/server.ts";
 import { addImage, getUserBySession } from "🛠️/db.ts";
-import { Image, Post, State, User } from "🛠️/types.ts";
-import { HandlerContext, PageProps } from "$fresh/server.ts";
-import { listImage, listPost } from "🛠️/db.ts";
-import { Head } from "$fresh/runtime.ts";
-import { Header } from "🧱/Header.tsx";
+import { Image, State, User } from "🛠️/types.ts";
+import { PageProps } from "$fresh/server.ts";
+import { listImage } from "🛠️/db.ts";
 import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
@@ -33,7 +31,7 @@ export const handler: Handlers<SignedInData, State> = {
 
     addImage(user.id, file);
 
-    return redirect(`/image/`);
+    return redirect(`/admin/image/`);
   },
   async GET(req, ctx) {
     const user = await getUserBySession(ctx.state.session ?? "");
@@ -68,6 +66,7 @@ export default function Home(props: PageProps<SignedInData>) {
             >
               <input type="file" name="image" />
               <input
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600"
                 type="submit"
                 value="Upload"
               />
@@ -91,7 +90,11 @@ export default function Home(props: PageProps<SignedInData>) {
                   >
                     <input type="hidden" name="_method" value="DELETE" />
                     <input type="hidden" name="id" value={image.id} />
-                    <input type="submit" value="Delete" />
+                    <input
+                      type="submit"
+                      value="Delete"
+                      class="px-4 py-2 bg-white border border-red-500 text-red-500 rounded-lg cursor-pointer hover:bg-red-500 hover:text-white"
+                    />
                   </form>
                 </div>
               );
@@ -100,10 +103,5 @@ export default function Home(props: PageProps<SignedInData>) {
         </div>
       </Layout>
     </AdminPage>
-  );
-
-  return (
-    <>
-    </>
   );
 }
