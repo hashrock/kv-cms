@@ -15,6 +15,17 @@ export function Contents(props: ContentsProps) {
   return (
     <>
       <div class={props.class}>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css"
+        />
+        <style>
+          {`
+          .markdown-body {
+            background-color: transparent;
+          }
+          `}
+        </style>
         <ul class="space-y-3">
           {props.posts.map((post) => {
             return (
@@ -30,7 +41,7 @@ export function Contents(props: ContentsProps) {
                   </h2>
 
                   <div
-                    class="text-lg text-gray-500 mt-8"
+                    class="markdown-body text-lg text-gray-500 mt-8"
                     dangerouslySetInnerHTML={{ __html: render(post?.body) }}
                   >
                   </div>
