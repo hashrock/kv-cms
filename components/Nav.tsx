@@ -14,11 +14,11 @@ export function Nav(props: PageProps) {
       href: "/admin/image",
       current: props.current === "image",
     },
-    {
-      name: "Pages",
-      href: "/admin/page",
-      current: props.current === "page",
-    },
+    // {
+    //   name: "Pages",
+    //   href: "/admin/page",
+    //   current: props.current === "page",
+    // },
   ];
 
   return (
