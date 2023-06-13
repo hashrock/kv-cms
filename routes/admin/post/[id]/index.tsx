@@ -7,6 +7,7 @@ import { getUserBySession } from "🛠️/db.ts";
 import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
+import TextArea from "../../../../islands/TextArea.tsx";
 
 async function put(user: User, id: string, form: FormData) {
   if (!id) {
@@ -97,12 +98,7 @@ export default function Home(props: PageProps<Data>) {
               />
             </div>
             <div>
-              <textarea
-                name="body"
-                class="px-3 py-2 h-[32rem] w-full border-1 rounded"
-              >
-                {post.body}
-              </textarea>
+              <TextArea value={post.body} />
             </div>
             <input type="hidden" name="_method" value="PUT" />
             <input type="hidden" value={post.id} />

@@ -33,7 +33,16 @@ export default function Home(props: PageProps<Data>) {
     <AdminPage user={props.data?.user}>
       <Layout left={nav}>
         <div class="p-8">
-          <PostList collection="post" />
+          <a
+            href="/admin/newpost"
+            class="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
+          >
+            New Post
+          </a>
+
+          <div class="mt-8">
+            <PostList collection="post" />
+          </div>
         </div>
       </Layout>
     </AdminPage>

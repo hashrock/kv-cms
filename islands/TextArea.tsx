@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "preact/hooks";
+import { JSX } from "preact";
 
-export default function TextArea() {
+export default function TextArea(
+  props: JSX.HTMLAttributes<HTMLTextAreaElement>,
+) {
   const ref = useRef<HTMLTextAreaElement>(null);
   const [dropOver, setDropOver] = useState(false);
   useEffect(() => {
@@ -38,7 +41,7 @@ export default function TextArea() {
         const url = await res.json();
         const markdown = `![Image](${url})`;
 
-        const textarea = document.querySelector("textarea");
+        const textarea = ref.current;
         if (textarea) {
           const start = textarea.selectionStart;
           const end = textarea.selectionEnd;
@@ -57,6 +60,7 @@ export default function TextArea() {
       <textarea
         ref={ref}
         name="body"
+        {...props}
         class={`px-3 py-2 h-[32rem] w-full border-1 rounded ${
           dropOver ? "border-2 border-blue-500" : ""
         }`}

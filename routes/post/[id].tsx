@@ -18,7 +18,7 @@ async function put(user: User, id: string, form: FormData) {
     return new Response("Bad Request", { status: 400 });
   }
 
-  await updatePost(user.id, id, title, body);
+  await updatePost(id, title, body);
 
   return redirect();
 }

@@ -37,12 +37,3 @@ export const handler: Handlers<undefined, State> = {
     return new Response("Bad Request", { status: 400 });
   },
 };
-
-function redirect(location = "/") {
-  const headers = new Headers();
-  headers.set("location", location);
-  return new Response(null, {
-    status: 303,
-    headers,
-  });
-}

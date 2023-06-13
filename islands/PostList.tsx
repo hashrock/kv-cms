@@ -118,8 +118,8 @@ export default function PostList(
 
   return (
     <>
-      {editing
-        ? (
+      {editing &&
+        (
           <form onSubmit={create}>
             <div>
               <textarea cols={80} rows={10} ref={textRef}>
@@ -137,8 +137,7 @@ export default function PostList(
               </button>
             </div>
           </form>
-        )
-        : <button onClick={() => setEditing(true)}>New {collection}</button>}
+        )}
 
       <div>
         <table class="w-full text-left text-gray-800 dark:text-gray-400">
