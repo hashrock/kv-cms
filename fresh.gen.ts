@@ -5,21 +5,22 @@
 import config from "./deno.json" assert { type: "json" };
 import * as $0 from "./routes/_middleware.tsx";
 import * as $1 from "./routes/admin/index.tsx";
-import * as $2 from "./routes/admin/post.tsx";
-import * as $3 from "./routes/api/image/[id].tsx";
-import * as $4 from "./routes/api/image/index.tsx";
-import * as $5 from "./routes/api/post/[id].ts";
-import * as $6 from "./routes/api/post/admin.tsx";
-import * as $7 from "./routes/api/post/index.ts";
-import * as $8 from "./routes/auth/oauth2callback.ts";
-import * as $9 from "./routes/auth/signin.ts";
-import * as $10 from "./routes/auth/signout.ts";
-import * as $11 from "./routes/image/[id].tsx";
-import * as $12 from "./routes/image/index.tsx";
-import * as $13 from "./routes/index.tsx";
-import * as $14 from "./routes/new.tsx";
-import * as $15 from "./routes/post/[id].tsx";
-import * as $16 from "./routes/post/index.tsx";
+import * as $2 from "./routes/admin/post/[id]/index.tsx";
+import * as $3 from "./routes/admin/post/index.tsx";
+import * as $4 from "./routes/api/image/[id].tsx";
+import * as $5 from "./routes/api/image/index.tsx";
+import * as $6 from "./routes/api/post/[id].ts";
+import * as $7 from "./routes/api/post/admin.tsx";
+import * as $8 from "./routes/api/post/index.ts";
+import * as $9 from "./routes/auth/oauth2callback.ts";
+import * as $10 from "./routes/auth/signin.ts";
+import * as $11 from "./routes/auth/signout.ts";
+import * as $12 from "./routes/image/[id].tsx";
+import * as $13 from "./routes/image/index.tsx";
+import * as $14 from "./routes/index.tsx";
+import * as $15 from "./routes/new.tsx";
+import * as $16 from "./routes/post/[id].tsx";
+import * as $17 from "./routes/post/index.tsx";
 import * as $$0 from "./islands/AdminPanel.tsx";
 import * as $$1 from "./islands/ImageConvert.tsx";
 import * as $$2 from "./islands/PostList.tsx";
@@ -29,21 +30,22 @@ const manifest = {
   routes: {
     "./routes/_middleware.tsx": $0,
     "./routes/admin/index.tsx": $1,
-    "./routes/admin/post.tsx": $2,
-    "./routes/api/image/[id].tsx": $3,
-    "./routes/api/image/index.tsx": $4,
-    "./routes/api/post/[id].ts": $5,
-    "./routes/api/post/admin.tsx": $6,
-    "./routes/api/post/index.ts": $7,
-    "./routes/auth/oauth2callback.ts": $8,
-    "./routes/auth/signin.ts": $9,
-    "./routes/auth/signout.ts": $10,
-    "./routes/image/[id].tsx": $11,
-    "./routes/image/index.tsx": $12,
-    "./routes/index.tsx": $13,
-    "./routes/new.tsx": $14,
-    "./routes/post/[id].tsx": $15,
-    "./routes/post/index.tsx": $16,
+    "./routes/admin/post/[id]/index.tsx": $2,
+    "./routes/admin/post/index.tsx": $3,
+    "./routes/api/image/[id].tsx": $4,
+    "./routes/api/image/index.tsx": $5,
+    "./routes/api/post/[id].ts": $6,
+    "./routes/api/post/admin.tsx": $7,
+    "./routes/api/post/index.ts": $8,
+    "./routes/auth/oauth2callback.ts": $9,
+    "./routes/auth/signin.ts": $10,
+    "./routes/auth/signout.ts": $11,
+    "./routes/image/[id].tsx": $12,
+    "./routes/image/index.tsx": $13,
+    "./routes/index.tsx": $14,
+    "./routes/new.tsx": $15,
+    "./routes/post/[id].tsx": $16,
+    "./routes/post/index.tsx": $17,
   },
   islands: {
     "./islands/AdminPanel.tsx": $$0,

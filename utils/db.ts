@@ -117,7 +117,6 @@ export async function getPost(id: string) {
 }
 
 export async function updatePost(
-  uid: string,
   id: string,
   title: string,
   body: string,
@@ -127,7 +126,7 @@ export async function updatePost(
   post.title = title;
   post.body = body;
   post.updatedAt = new Date();
-  await kv.set(["posts", uid, id], post);
+  await kv.set(["posts", id], post);
 }
 
 export async function deletePost(id: string) {

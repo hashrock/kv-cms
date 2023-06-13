@@ -6,7 +6,7 @@ import { getUserBySession, listImage, listPost } from "🛠️/db.ts";
 import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
-import PostList from "../../islands/PostList.tsx";
+import PostList from "@/islands/PostList.tsx";
 
 type Data = SignedInData | null;
 
