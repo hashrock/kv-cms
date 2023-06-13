@@ -23,7 +23,6 @@ import * as $16 from "./routes/image/index.tsx";
 import * as $17 from "./routes/index.tsx";
 import * as $18 from "./routes/new.tsx";
 import * as $19 from "./routes/post/[id].tsx";
-import * as $20 from "./routes/post/index.tsx";
 import * as $$0 from "./islands/AdminPanel.tsx";
 import * as $$1 from "./islands/ImageConvert.tsx";
 import * as $$2 from "./islands/PostList.tsx";
@@ -51,7 +50,6 @@ const manifest = {
     "./routes/index.tsx": $17,
     "./routes/new.tsx": $18,
     "./routes/post/[id].tsx": $19,
-    "./routes/post/index.tsx": $20,
   },
   islands: {
     "./islands/AdminPanel.tsx": $$0,
