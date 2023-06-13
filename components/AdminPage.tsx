@@ -38,7 +38,11 @@ export function AdminPage(props: PageProps) {
       class={"" +
         (props.class ? " " + props.class : "")}
     >
-      <header class="text-right bg-gray-800 text-white p-2">
+      <header class="text-sm bg-gray-800 text-white p-4 flex">
+        <div class="flex-grow flex gap-4">
+          <a href="/admin">Admin page</a>
+          <a href="/" target="_blank">My website</a>
+        </div>
         <Header user={props.user} />
       </header>
       <div>

@@ -75,7 +75,9 @@ export default function Home(props: PageProps<SignedInData>) {
 
           <div>
             {props.data.images.map((image) => {
-              const url = `/image/${image.id}`;
+              const fileName = `${image.id}.${image.type.split("/")[1]}`;
+
+              const url = `/image/${fileName}`;
               return (
                 <div>
                   <img

@@ -1,19 +1,14 @@
 import { Handlers } from "$fresh/server.ts";
-import { deleteImage, getImage, getUserBySession } from "🛠️/db.ts";
+import { getImage } from "🛠️/db.ts";
 import { State } from "🛠️/types.ts";
-import { redirect } from "@/utils/response.ts";
-
-async function remove(
-  id: string,
-) {
-  await deleteImage(id);
-  return redirect(`/admin/image`);
-}
 
 export const handler: Handlers<undefined, State> = {
   async GET(req, ctx) {
+    const filename = ctx.params.id;
+    const filenameWithoutExt = filename.split(".").slice(0, -1).join(".");
+
     // No auth
-    const image = await getImage(ctx.params.id);
+    const image = await getImage(filenameWithoutExt);
     if (image === null) {
       return new Response("Not Found", { status: 404 });
     }
@@ -22,18 +17,5 @@ export const handler: Handlers<undefined, State> = {
         "content-type": image.meta?.type ?? "application/octet-stream",
       },
     });
-  },
-  async POST(req, ctx) {
-    const form = await req.formData();
-    const method = form.get("_method")?.toString();
-    const user = await getUserBySession(ctx.state.session ?? "");
-    if (user === null) {
-      return new Response("Unauthorized", { status: 401 });
-    }
-    if (method === "DELETE") {
-      return remove(ctx.params.id);
-    }
-
-    return new Response("Bad Request", { status: 400 });
   },
 };

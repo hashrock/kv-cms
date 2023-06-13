@@ -35,7 +35,7 @@ export const handler: Handlers<SignedInData, State> = {
 
     return success.result.ok
       ? new Response(
-        JSON.stringify(`/api/image/${user.id}/${success.id}.${ext}`),
+        JSON.stringify(`/image/${success.id}.${ext}`),
       )
       : new Response("Internal Server Error", { status: 500 });
   },
