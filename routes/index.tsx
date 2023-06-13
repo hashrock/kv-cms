@@ -41,7 +41,11 @@ export default function Home(props: PageProps<SignedInData>) {
             </a>
           </div>
         )}
-        <div class="px-4 py-8 mx-auto max-w-screen-lg flex">
+        <div class="text-4xl px-4 py-16 mx-auto max-w-screen-lg ">
+          <a class="hover:underline" href="/">Title</a>
+        </div>
+
+        <div class="px-4 py-4 mx-auto max-w-screen-lg flex gap-8">
           <Contents
             class="flex-grow"
             user={props.data.user}
@@ -77,11 +81,11 @@ function Contents(props: ContentsProps) {
   return (
     <>
       <div class={props.class}>
-        <ul class="space-y-3 mt-8">
+        <ul class="space-y-3">
           {props.posts.map((post) => {
             return (
               <li>
-                <div class=" p-8 border-b-1 border-gray-600">
+                <div class="mb-16 pb-8 border-b-1 border-gray-400">
                   <h2 class="text-4xl">
                     {post?.title}
                   </h2>
