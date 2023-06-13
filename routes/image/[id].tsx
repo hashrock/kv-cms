@@ -1,13 +1,13 @@
 import { Handlers } from "$fresh/server.ts";
 import { deleteImage, getImage, getUserBySession } from "🛠️/db.ts";
-import { State, User } from "🛠️/types.ts";
+import { State } from "🛠️/types.ts";
+import { redirect } from "@/utils/response.ts";
 
 async function remove(
-  uid: string,
   id: string,
 ) {
   await deleteImage(id);
-  return redirect(`/image/${uid}`);
+  return redirect(`/admin/image`);
 }
 
 export const handler: Handlers<undefined, State> = {
@@ -31,18 +31,9 @@ export const handler: Handlers<undefined, State> = {
       return new Response("Unauthorized", { status: 401 });
     }
     if (method === "DELETE") {
-      return remove(ctx.params.uid, ctx.params.id);
+      return remove(ctx.params.id);
     }
 
     return new Response("Bad Request", { status: 400 });
   },
 };
-
-function redirect(location = "/") {
-  const headers = new Headers();
-  headers.set("location", location);
-  return new Response(null, {
-    status: 303,
-    headers,
-  });
-}

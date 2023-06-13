@@ -5,6 +5,7 @@ import { HandlerContext, PageProps } from "$fresh/server.ts";
 import { listImage, listPost } from "🛠️/db.ts";
 import { Head } from "$fresh/runtime.ts";
 import { Header } from "🧱/Header.tsx";
+import { redirect } from "@/utils/response.ts";
 interface SignedInData {
   user: User;
   images: Image[];
@@ -30,7 +31,7 @@ export const handler: Handlers<SignedInData, State> = {
 
     addImage(user.id, file);
 
-    return redirect(`/image/`);
+    return redirect(`/admin/image/`);
   },
   async GET(req, ctx) {
     const user = await getUserBySession(ctx.state.session ?? "");
@@ -40,14 +41,6 @@ export const handler: Handlers<SignedInData, State> = {
     return ctx.render({ user, images });
   },
 };
-function redirect(location = "/") {
-  const headers = new Headers();
-  headers.set("location", location);
-  return new Response(null, {
-    status: 303,
-    headers,
-  });
-}
 
 export default function Home(props: PageProps<SignedInData>) {
   const user = props.data.user ?? null;
@@ -63,7 +56,7 @@ export default function Home(props: PageProps<SignedInData>) {
           <div>
             <div>
               <form
-                action={`/image`}
+                action={`/admin/image`}
                 method="POST"
                 encType="multipart/form-data"
               >
@@ -87,7 +80,7 @@ export default function Home(props: PageProps<SignedInData>) {
                       width="200"
                     />
                     <form
-                      action={`/image/${image.id}`}
+                      action={`/admin/image/${image.id}`}
                       method="POST"
                     >
                       <input type="hidden" name="_method" value="DELETE" />

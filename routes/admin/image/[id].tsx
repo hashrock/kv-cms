@@ -1,13 +1,14 @@
 import { Handlers } from "$fresh/server.ts";
 import { deleteImage, getImage, getUserBySession } from "🛠️/db.ts";
 import { State, User } from "🛠️/types.ts";
+import { redirect } from "@/utils/response.ts";
 
 async function remove(
   uid: string,
   id: string,
 ) {
   await deleteImage(id);
-  return redirect(`/image/${uid}`);
+  return redirect(`/admin/image`);
 }
 
 export const handler: Handlers<undefined, State> = {
