@@ -1,13 +1,17 @@
 import { HandlerContext, PageProps } from "$fresh/server.ts";
 import { Head } from "$fresh/runtime.ts";
 
-import { Image, Post, State, User } from "🛠️/types.ts";
-import { getUserBySession, listImage, listPost } from "🛠️/db.ts";
+import { Post, State, User } from "🛠️/types.ts";
+import { getUserBySession, listPost } from "🛠️/db.ts";
 import { Contents } from "../components/Contents.tsx";
+import { CmsConfig, getConfig } from "../utils/config.ts";
+import markdown from "../utils/markdown.ts";
 
 interface SignedInData {
   user: User | null;
   posts: Post[];
+  title: string;
+  about: string;
 }
 
 export async function handler(
@@ -19,8 +23,12 @@ export async function handler(
     user = await getUserBySession(ctx.state.session);
   }
 
+  const config = await getConfig();
   const posts = await listPost();
-  return ctx.render({ user, posts });
+
+  const title = config.title;
+  const about = markdown(config.about);
+  return ctx.render({ user, posts, title, about });
 }
 
 export default function Home(props: PageProps<SignedInData>) {
@@ -35,7 +43,7 @@ export default function Home(props: PageProps<SignedInData>) {
           </div>
         )}
         <div class="text-4xl px-4 py-16 mx-auto max-w-screen-lg ">
-          <a class="hover:underline" href="/">Title</a>
+          <a class="hover:underline" href="/">{props.data.title}</a>
         </div>
 
         <div class="px-4 py-4 mx-auto max-w-screen-lg flex gap-8">
@@ -49,8 +57,7 @@ export default function Home(props: PageProps<SignedInData>) {
               About
             </h2>
             <div class="text-lg text-gray-500 mt-8">
-              <p>
-                This is a sample blog application for KV CMS.
+              <p dangerouslySetInnerHTML={{ __html: props.data.about }}>
               </p>
             </div>
           </div>

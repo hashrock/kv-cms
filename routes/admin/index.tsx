@@ -1,4 +1,4 @@
-import { HandlerContext, PageProps } from "$fresh/server.ts";
+import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
 import { Head } from "$fresh/runtime.ts";
 
 import { Image, Post, State, User } from "🛠️/types.ts";
@@ -6,7 +6,9 @@ import { getUserBySession, listImage, listPost } from "🛠️/db.ts";
 
 import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
-import { Layout } from "../../components/Layout.tsx";
+import { Layout } from "@/components/Layout.tsx";
+import { redirect } from "@/utils/response.ts";
+import { CmsConfig, getConfig, setConfig } from "@/utils/config.ts";
 
 type Data = SignedInData | null;
 
@@ -14,18 +16,35 @@ interface SignedInData {
   user: User;
   posts: Post[];
   images: Image[];
+  config: CmsConfig;
 }
 
-export async function handler(req: Request, ctx: HandlerContext<Data, State>) {
-  if (!ctx.state.session) return ctx.render(null);
+export const handler: Handlers<Data, State> = {
+  async GET(_, ctx) {
+    if (!ctx.state.session) return ctx.render(null);
 
-  const user = await getUserBySession(ctx.state.session);
-  if (!user) return ctx.render(null);
+    const user = await getUserBySession(ctx.state.session);
+    if (!user) return ctx.render(null);
 
-  const posts = await listPost();
-  const images = await listImage();
-  return ctx.render({ user, posts, images });
-}
+    const posts = await listPost();
+    const images = await listImage();
+    const config = await getConfig();
+
+    return ctx.render({ user, posts, images, config });
+  },
+  async POST(req, ctx) {
+    const form = await req.formData();
+    const user = await getUserBySession(ctx.state.session ?? "");
+    // TODO auth
+    if (!user) return redirect("/admin");
+
+    const title = form.get("title")?.toString() ?? "";
+    const about = form.get("about")?.toString() ?? "";
+    await setConfig({ title, about });
+
+    return redirect("/admin/");
+  },
+};
 
 export default function Home(props: PageProps<Data>) {
   const nav = <Nav current="index" />;
@@ -42,11 +61,40 @@ export default function Home(props: PageProps<Data>) {
               <label class="text-2xl" htmlFor="configTitle">Page title</label>
             </div>
             <div>
-              <input
-                id="configTitle"
-                type="text"
-                class="px-4 py-2 border border-gray-500 rounded"
-              />
+              <form action="/admin" method="POST">
+                <div>
+                  Title
+                </div>
+                <div>
+                  <input
+                    id="configTitle"
+                    type="text"
+                    name="title"
+                    class="px-3 py-2 border border-gray-500 rounded"
+                    value={props.data?.config.title}
+                  />
+                </div>
+
+                <div>
+                  About
+                </div>
+                <textarea
+                  name="about"
+                  id=""
+                  cols={30}
+                  rows={10}
+                  class="px-3 py-2 border border-gray-500 rounded"
+                  value={props.data?.config.about}
+                >
+                </textarea>
+
+                <div>
+                  <input
+                    type="submit"
+                    class="px-3 py-2 border border-gray-500 rounded"
+                  />
+                </div>
+              </form>
             </div>
           </div>
         </div>
