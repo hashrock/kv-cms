@@ -6,6 +6,8 @@ import { listImage } from "🛠️/db.ts";
 import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
+import { prettyDate } from "@/utils/date.ts";
+
 interface SignedInData {
   user: User;
   images: Image[];
@@ -73,20 +75,27 @@ export default function Home(props: PageProps<SignedInData>) {
             </form>
           </div>
 
-          <div>
+          <div class="grid grid-cols-4 gap-5 mt-8">
             {props.data.images.map((image) => {
               const fileName = `${image.id}.${image.type.split("/")[1]}`;
 
               const url = `/image/${fileName}`;
               return (
-                <div>
+                <div class="shadow rounded-xl p-2 border border-gray-300">
                   <img
-                    class="mt-8"
                     src={url}
                     alt={image?.name}
                     width="200"
                   />
+                  <div>
+                    {image.name}
+                  </div>
+
+                  <div>
+                    {prettyDate(image.createdAt)}
+                  </div>
                   <form
+                    class="mt-2"
                     action={`/admin/image/${image.id}`}
                     method="POST"
                   >
@@ -95,7 +104,7 @@ export default function Home(props: PageProps<SignedInData>) {
                     <input
                       type="submit"
                       value="Delete"
-                      class="px-4 py-2 bg-white border border-red-500 text-red-500 rounded-lg cursor-pointer hover:bg-red-500 hover:text-white"
+                      class="px-2 py-1 bg-white border border-red-500 text-red-500 rounded-lg cursor-pointer hover:bg-red-500 hover:text-white"
                     />
                   </form>
                 </div>

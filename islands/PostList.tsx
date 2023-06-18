@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { Post } from "@/utils/types.ts";
+import { prettyDate } from "@/utils/date.ts";
 
 function PostRow(
   { collection, post, onUpdate }: {
@@ -16,6 +17,7 @@ function PostRow(
   }
 
   const tdStyle = "px-6 py-4 whitespace-nowrap";
+  const actionButtonStyle = "text-blue-500 hover:text-blue-700";
 
   return (
     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -29,7 +31,7 @@ function PostRow(
       </td>
 
       <td class={tdStyle}>
-        <button onClick={remove}>Delete</button>
+        <button onClick={remove} class={actionButtonStyle}>Delete</button>
       </td>
     </tr>
   );
@@ -80,9 +82,4 @@ export default function PostList(
       </div>
     </>
   );
-}
-
-function prettyDate(date: Date) {
-  const d = new Date(date);
-  return d.toLocaleDateString() + " " + d.toLocaleTimeString();
 }

@@ -1,10 +1,9 @@
 import { HandlerContext, PageProps } from "$fresh/server.ts";
-import { Head } from "$fresh/runtime.ts";
 
 import { Post, State, User } from "🛠️/types.ts";
 import { getUserBySession, listPost } from "🛠️/db.ts";
 import { Contents } from "../components/Contents.tsx";
-import { CmsConfig, getConfig } from "../utils/config.ts";
+import { getConfig } from "../utils/config.ts";
 import markdown from "../utils/markdown.ts";
 
 interface SignedInData {

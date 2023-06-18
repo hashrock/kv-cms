@@ -2,7 +2,7 @@ import { Head } from "$fresh/runtime.ts";
 import AdminPanel from "../../../islands/AdminPanel.tsx";
 
 export default function Home() {
-  const example = {"title":"","body":""}
+  const example = { "title": "", "body": "" };
 
   return (
     <>
@@ -10,7 +10,10 @@ export default function Home() {
         <title>Admin - post</title>
       </Head>
       <div>
-        <AdminPanel collection="post" example={JSON.stringify(example, null, 2)} />
+        <AdminPanel
+          collection="post"
+          example={JSON.stringify(example, null, 2)}
+        />
       </div>
     </>
   );
