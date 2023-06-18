@@ -58,9 +58,6 @@ export default function Home(props: PageProps<Data>) {
 
           <div class="space-y-4">
             <div>
-              <label class="text-2xl" htmlFor="configTitle">Page title</label>
-            </div>
-            <div>
               <form action="/admin" method="POST">
                 <div>
                   Title
