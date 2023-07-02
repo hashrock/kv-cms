@@ -4,6 +4,7 @@ import { Image, Post, State, User } from "🛠️/types.ts";
 import { getPost, getUserBySession, listImage, listPost } from "🛠️/db.ts";
 import { Contents } from "🧱/Contents.tsx";
 import { CmsConfig, getConfig } from "@/utils/config.ts";
+import { LoginNav } from "../../components/LoginNav.tsx";
 
 interface SignedInData {
   user: User | null;
@@ -34,13 +35,7 @@ export default function Home(props: PageProps<SignedInData>) {
   return (
     <>
       <body class="bg-gray-100">
-        {props.data?.user && (
-          <div class="bg-gray-900 text-gray-50">
-            <a href="/admin">
-              Admin Panel
-            </a>
-          </div>
-        )}
+        {props.data?.user && <LoginNav user={props.data.user} />}
         <div class="text-4xl px-4 py-16 mx-auto max-w-screen-lg ">
           <a class="hover:underline" href="/">{props.data.config.title}</a>
         </div>
