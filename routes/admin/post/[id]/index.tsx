@@ -7,7 +7,7 @@ import { getUserBySession } from "🛠️/db.ts";
 import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
-import TextArea from "../../../../islands/TextArea.tsx";
+import TextArea from "@/islands/TextArea.tsx";
 
 async function put(user: User, id: string, form: FormData) {
   if (!id) {

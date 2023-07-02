@@ -59,7 +59,11 @@ export async function addImage(uid: string, data: File) {
     createdAt: new Date(),
     updatedAt: new Date(),
   };
-  await addImageData(uuid, await data.arrayBuffer());
+  try {
+    await addImageData(uuid, await data.arrayBuffer());
+  } catch (e) {
+    console.log(e);
+  }
   return { result: await kv.set(["images", uuid], image), id: uuid };
 }
 
