@@ -1,4 +1,24 @@
-# Classic memo pad
+# Simple CMS with Deno KV
+
+WIP!
+
+# TODO
+
+- [ ] Posts
+- [ ] Image upload with on-client compression
+- [ ] Pages
+- [ ] user management
+- [ ] redesign
+- [ ] security
+
+# Nice to have
+
+- [ ] header image
+- [ ] logo
+- [ ] block based editor for pages
+- [ ] demo mode
+- [ ] redirect to the admin page after login
+- [ ] JSON API as a headless cms
 
 ## Development
 
