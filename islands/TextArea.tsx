@@ -8,7 +8,6 @@ export default function TextArea(
   const ref = useRef<HTMLTextAreaElement>(null);
   const [dropOver, setDropOver] = useState(false);
   const [value, setValue] = useState(props.value);
-  const [selectionStart, setSelectionStart] = useState(0);
   const [markdown, setMarkdown] = useState(
     render((props.value as string) ?? ""),
   );
@@ -49,11 +48,14 @@ export default function TextArea(
         const markdown = `![Image](${url})`;
 
         setValue((prev) => {
-          const start = selectionStart;
-          const end = selectionStart;
-          const before = prev.slice(0, start);
-          const after = prev.slice(end);
-          return before + markdown + after;
+          const textarea = e.target as HTMLTextAreaElement;
+          const start = textarea.selectionStart;
+          if (prev && typeof prev === "string") {
+            const before = prev.slice(0, start);
+            const after = prev.slice(start);
+            return before + markdown + after;
+          }
+          return markdown;
         });
       })();
     }, false);
