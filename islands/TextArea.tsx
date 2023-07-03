@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { JSX } from "preact";
 import render from "@/utils/markdown.ts";
+import { encode, toDataUrl } from "@/utils/imageutils.ts";
 
 export default function TextArea(
   props: JSX.HTMLAttributes<HTMLTextAreaElement>,
@@ -25,7 +26,7 @@ export default function TextArea(
       setDropOver(false);
     }, false);
 
-    ref.current?.addEventListener("drop", (e) => {
+    ref.current?.addEventListener("drop", async (e) => {
       e.stopPropagation();
       e.preventDefault();
       setDropOver(false);
@@ -35,7 +36,23 @@ export default function TextArea(
       if (files) {
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
-          formData.append("image", file);
+
+          if (file.size > 1024 * 300) {
+            const blob = await toDataUrl(file);
+            const isSafari = /^((?!chrome|android).)*safari/i.test(
+              navigator.userAgent,
+            );
+            const converted = await encode(
+              blob,
+              0.5,
+              1000,
+              1000,
+              isSafari ? "image/jpeg" : "image/webp",
+            );
+            formData.append("image", converted);
+          } else {
+            formData.append("image", file);
+          }
         }
       }
       (async () => {
