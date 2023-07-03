@@ -51,7 +51,10 @@ export default function TextArea(
               1000,
               isSafari ? "image/jpeg" : "image/webp",
             );
-            formData.append("image", converted);
+            const newFile = new File([converted], file.name, {
+              type: converted.type,
+            });
+            formData.append("image", newFile);
           } else {
             formData.append("image", file);
           }
