@@ -8,10 +8,15 @@ export default function TextArea(
 ) {
   const ref = useRef<HTMLTextAreaElement>(null);
   const [dropOver, setDropOver] = useState(false);
-  const [value, setValue] = useState(props.value);
+  const [value, setValue] = useState(props.value as string);
+
   const [markdown, setMarkdown] = useState(
     render((props.value as string) ?? ""),
   );
+
+  useEffect(() => {
+    setMarkdown(render(value));
+  }, [value]);
 
   useEffect(() => {
     ref.current?.addEventListener("dragover", (e) => {
@@ -69,9 +74,10 @@ export default function TextArea(
         const url = await res.json();
         const markdown = `![Image](${url})`;
 
+        const textarea = e.target as HTMLTextAreaElement;
+        const start = textarea.selectionStart;
+
         setValue((prev) => {
-          const textarea = e.target as HTMLTextAreaElement;
-          const start = textarea.selectionStart;
           if (prev && typeof prev === "string") {
             const before = prev.slice(0, start);
             const after = prev.slice(start);
@@ -100,7 +106,6 @@ export default function TextArea(
         onInput={(e) => {
           const textarea = e.target as HTMLTextAreaElement;
           setValue(textarea.value);
-          setMarkdown(render(textarea.value));
         }}
       />
 
