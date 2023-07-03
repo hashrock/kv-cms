@@ -7,6 +7,7 @@ import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
 import { prettyDate } from "@/utils/date.ts";
+import IconTrash from "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/trash.tsx";
 
 interface SignedInData {
   user: User;
@@ -75,20 +76,19 @@ export default function Home(props: PageProps<SignedInData>) {
             </form>
           </div>
 
-          <div class="grid grid-cols-4 gap-5 mt-8">
+          <div class="flex flex-wrap gap-5 mt-8">
             {props.data.images.map((image) => {
               const fileName = `${image.id}.${image.type.split("/")[1]}`;
 
               const url = `/image/${fileName}`;
               return (
                 <div class="shadow rounded-xl p-2 border border-gray-300">
-                  <img
-                    src={url}
-                    alt={image?.name}
-                    width="200"
-                  />
-                  <div>
-                    {image.name}
+                  <div class="">
+                    <img
+                      src={url}
+                      alt={image?.name}
+                      class="object-cover h-32 w-32"
+                    />
                   </div>
 
                   <div>
@@ -100,12 +100,14 @@ export default function Home(props: PageProps<SignedInData>) {
                     method="POST"
                   >
                     <input type="hidden" name="_method" value="DELETE" />
+
                     <input type="hidden" name="id" value={image.id} />
-                    <input
+                    <button
                       type="submit"
-                      value="Delete"
-                      class="px-2 py-1 bg-white border border-red-500 text-red-500 rounded-lg cursor-pointer hover:bg-red-500 hover:text-white"
-                    />
+                      class="text-gray-500 hover:text-red-500"
+                    >
+                      <IconTrash class="w-6 h-6" />
+                    </button>
                   </form>
                 </div>
               );
