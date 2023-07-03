@@ -42,6 +42,8 @@ export default function TextArea(
             const isSafari = /^((?!chrome|android).)*safari/i.test(
               navigator.userAgent,
             );
+            // TODO
+            // compress image until size < 300kb
             const converted = await encode(
               blob,
               0.5,
