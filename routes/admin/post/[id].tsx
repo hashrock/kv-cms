@@ -8,6 +8,7 @@ import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
 import { EditorForm, EditorFormDelete } from "@/components/EditorForm.tsx";
+import IconChevronLeft from "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/chevron-left.tsx";
 
 async function put(user: User, id: string, form: FormData) {
   if (!id) {
@@ -84,7 +85,12 @@ export default function Home(props: PageProps<Data>) {
     <AdminPage user={props.data?.user}>
       <Layout left={nav}>
         <div class="p-8">
-          <h1 class="text-2xl">Edit post</h1>
+          <div class="mb-4">
+            <a href="/admin/post" class="flex text-blue-500 hover:underline">
+              <IconChevronLeft class="w-6 h-6" /> Back
+            </a>
+            <h1 class="text-xl">Edit post</h1>
+          </div>
           {post && <EditorForm post={post} />}
 
           <EditorFormDelete id={post.id} />

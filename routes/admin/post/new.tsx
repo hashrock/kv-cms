@@ -6,6 +6,7 @@ import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
 import { redirect } from "@/utils/response.ts";
 import { EditorForm } from "@/components/EditorForm.tsx";
+import IconChevronLeft from "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/chevron-left.tsx";
 
 interface Data {
   user?: User;
@@ -44,7 +45,14 @@ export default function Home(props: PageProps<Data>) {
     <AdminPage user={user}>
       <Layout left={nav}>
         <div class="p-8">
-          <h1 class="text-2xl">Create new post</h1>
+          <div class="mb-4">
+            <a href="/admin/post" class="flex text-blue-500 hover:underline">
+              <IconChevronLeft class="w-6 h-6" />
+
+              Back
+            </a>
+            <h1 class="text-xl">Create new post</h1>
+          </div>
           <EditorForm post={{ title: yyyymmdd, body: "" }} />
         </div>
       </Layout>
