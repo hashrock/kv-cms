@@ -4,7 +4,7 @@ import { Image, Post, State, User } from "🛠️/types.ts";
 import { getPost, getUserBySession, listImage, listPost } from "🛠️/db.ts";
 import { Contents } from "🧱/Contents.tsx";
 import { CmsConfig, getConfig } from "@/utils/config.ts";
-import { LoginNav } from "../../components/LoginNav.tsx";
+import { LoginNav } from "@/components/LoginNav.tsx";
 
 interface SignedInData {
   user: User | null;

@@ -34,7 +34,7 @@ export default function Home(props: PageProps<Data>) {
       <Layout left={nav}>
         <div class="p-8">
           <a
-            href="/admin/newpost"
+            href="/admin/post/new"
             class="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
           >
             New Post

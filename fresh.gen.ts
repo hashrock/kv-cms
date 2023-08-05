@@ -6,9 +6,9 @@ import * as $0 from "./routes/_middleware.tsx";
 import * as $1 from "./routes/admin/image/[id].tsx";
 import * as $2 from "./routes/admin/image/index.tsx";
 import * as $3 from "./routes/admin/index.tsx";
-import * as $4 from "./routes/admin/newpost.tsx";
-import * as $5 from "./routes/admin/post/[id]/index.tsx";
-import * as $6 from "./routes/admin/post/index.tsx";
+import * as $4 from "./routes/admin/post/[id].tsx";
+import * as $5 from "./routes/admin/post/index.tsx";
+import * as $6 from "./routes/admin/post/new.tsx";
 import * as $7 from "./routes/api/image/[id].tsx";
 import * as $8 from "./routes/api/image/index.tsx";
 import * as $9 from "./routes/api/post/[id].ts";
@@ -31,9 +31,9 @@ const manifest = {
     "./routes/admin/image/[id].tsx": $1,
     "./routes/admin/image/index.tsx": $2,
     "./routes/admin/index.tsx": $3,
-    "./routes/admin/newpost.tsx": $4,
-    "./routes/admin/post/[id]/index.tsx": $5,
-    "./routes/admin/post/index.tsx": $6,
+    "./routes/admin/post/[id].tsx": $4,
+    "./routes/admin/post/index.tsx": $5,
+    "./routes/admin/post/new.tsx": $6,
     "./routes/api/image/[id].tsx": $7,
     "./routes/api/image/index.tsx": $8,
     "./routes/api/post/[id].ts": $9,

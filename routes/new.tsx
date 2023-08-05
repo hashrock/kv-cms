@@ -4,7 +4,7 @@ import { getUserBySession } from "🛠️/db.ts";
 import { State, User } from "🛠️/types.ts";
 
 import { Header } from "🧱/Header.tsx";
-import TextArea from "../islands/TextArea.tsx";
+import TextArea from "@/islands/TextArea.tsx";
 
 interface Data {
   user: User | null;

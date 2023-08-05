@@ -2,10 +2,10 @@ import { HandlerContext, PageProps } from "$fresh/server.ts";
 
 import { Post, State, User } from "🛠️/types.ts";
 import { getUserBySession, listPost } from "🛠️/db.ts";
-import { Contents } from "../components/Contents.tsx";
-import { getConfig } from "../utils/config.ts";
-import markdown from "../utils/markdown.ts";
-import { LoginNav } from "../components/LoginNav.tsx";
+import { Contents } from "@/components/Contents.tsx";
+import { getConfig } from "@/utils/config.ts";
+import markdown from "@/utils/markdown.ts";
+import { LoginNav } from "@/components/LoginNav.tsx";
 
 interface SignedInData {
   user: User | null;

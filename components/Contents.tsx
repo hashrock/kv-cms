@@ -1,5 +1,5 @@
 import { JSX } from "preact";
-import render from "../utils/markdown.ts";
+import render from "@/utils/markdown.ts";
 import { Image, Post, User } from "🛠️/types.ts";
 
 interface ContentsProps extends JSX.HTMLAttributes<HTMLDivElement> {

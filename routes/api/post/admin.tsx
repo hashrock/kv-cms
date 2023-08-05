@@ -1,5 +1,5 @@
 import { Head } from "$fresh/runtime.ts";
-import AdminPanel from "../../../islands/AdminPanel.tsx";
+import AdminPanel from "@/islands/AdminPanel.tsx";
 
 export default function Home() {
   const example = { "title": "", "body": "" };

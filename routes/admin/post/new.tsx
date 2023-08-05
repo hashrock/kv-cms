@@ -5,7 +5,7 @@ import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
 import TextArea from "@/islands/TextArea.tsx";
-import { redirect } from "../../utils/response.ts";
+import { redirect } from "@/utils/response.ts";
 
 interface Data {
   user?: User;
@@ -47,7 +47,7 @@ export default function Home(props: PageProps<Data>) {
           <div class="p-8">
             <h1 class="text-2xl">Create new post</h1>
             <form
-              action={`/admin/newpost`}
+              action={`/admin/post/new`}
               method="POST"
               class="flex flex-col mt-8"
             >
