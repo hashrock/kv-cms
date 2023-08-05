@@ -18,7 +18,7 @@ export const handler: Handlers<SignedInData, State> = {
       return new Response("Unauthorized", { status: 401 });
     }
     const { title, body } = await req.json();
-    await updatePost(user.id, ctx.params.id, title, body);
+    await updatePost(ctx.params.id, title, body);
     return new Response(JSON.stringify({ id: ctx.params.id }), {
       headers: { "content-type": "application/json" },
     });
