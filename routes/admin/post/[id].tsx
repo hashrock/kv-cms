@@ -7,7 +7,7 @@ import { getUserBySession } from "🛠️/db.ts";
 import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
-import { EditorForm } from "@/components/EditorForm.tsx";
+import { EditorForm, EditorFormDelete } from "@/components/EditorForm.tsx";
 
 async function put(user: User, id: string, form: FormData) {
   if (!id) {
@@ -87,19 +87,7 @@ export default function Home(props: PageProps<Data>) {
           <h1 class="text-2xl">Edit post</h1>
           {post && <EditorForm post={post} />}
 
-          <form
-            action={`/admin/post/${post.id}`}
-            method="POST"
-            class="flex justify-center"
-          >
-            <input type="hidden" name="_method" value="DELETE" />
-            <input type="hidden" value={post.id} />
-            <input
-              class="inline-block mt-8 cursor-pointer px-3 py-2 border-red-800 text-red-800 bg-transparent rounded"
-              type="submit"
-              value="Delete This Note"
-            />
-          </form>
+          <EditorFormDelete id={post.id} />
         </div>
       </Layout>
     </AdminPage>

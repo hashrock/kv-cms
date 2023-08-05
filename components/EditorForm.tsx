@@ -36,3 +36,21 @@ export function EditorForm(props: { post: EditorFormProps }) {
     </form>
   );
 }
+
+export function EditorFormDelete({ id }: { id: string }) {
+  return (
+    <form
+      action={`/admin/post/${id}`}
+      method="POST"
+      class="flex justify-center"
+    >
+      <input type="hidden" name="_method" value="DELETE" />
+      <input type="hidden" value={id} />
+      <input
+        class="inline-block mt-8 cursor-pointer px-3 py-2 border-red-800 text-red-800 bg-transparent rounded"
+        type="submit"
+        value="Delete This Note"
+      />
+    </form>
+  );
+}
