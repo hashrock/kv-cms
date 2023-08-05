@@ -4,8 +4,8 @@ import { State, User } from "🛠️/types.ts";
 import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
-import TextArea from "@/islands/TextArea.tsx";
 import { redirect } from "@/utils/response.ts";
+import { EditorForm } from "@/components/EditorForm.tsx";
 
 interface Data {
   user?: User;
@@ -41,36 +41,13 @@ export default function Home(props: PageProps<Data>) {
   const yyyymmdd = new Date().toISOString().slice(0, 10);
   const nav = <Nav current="post" />;
   return (
-    <>
-      <AdminPage user={user}>
-        <Layout left={nav}>
-          <div class="p-8">
-            <h1 class="text-2xl">Create new post</h1>
-            <form
-              action={`/admin/post/new`}
-              method="POST"
-              class="flex flex-col mt-8"
-            >
-              <div>
-                <input
-                  class="w-full  px-3 py-2  border-1 rounded"
-                  type="text"
-                  name="title"
-                  value={yyyymmdd}
-                />
-              </div>
-              <div>
-                <TextArea />
-              </div>
-              <input
-                type="submit"
-                value="Create"
-                class="mt-1 inline-block cursor-pointer px-3 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
-              />
-            </form>
-          </div>
-        </Layout>
-      </AdminPage>
-    </>
+    <AdminPage user={user}>
+      <Layout left={nav}>
+        <div class="p-8">
+          <h1 class="text-2xl">Create new post</h1>
+          <EditorForm post={{ title: yyyymmdd, body: "" }} />
+        </div>
+      </Layout>
+    </AdminPage>
   );
 }

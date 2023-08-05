@@ -19,8 +19,7 @@ import * as $13 from "./routes/auth/signin.ts";
 import * as $14 from "./routes/auth/signout.ts";
 import * as $15 from "./routes/image/[id].tsx";
 import * as $16 from "./routes/index.tsx";
-import * as $17 from "./routes/new.tsx";
-import * as $18 from "./routes/post/[id].tsx";
+import * as $17 from "./routes/post/[id].tsx";
 import * as $$0 from "./islands/AdminPanel.tsx";
 import * as $$1 from "./islands/PostList.tsx";
 import * as $$2 from "./islands/TextArea.tsx";
@@ -44,8 +43,7 @@ const manifest = {
     "./routes/auth/signout.ts": $14,
     "./routes/image/[id].tsx": $15,
     "./routes/index.tsx": $16,
-    "./routes/new.tsx": $17,
-    "./routes/post/[id].tsx": $18,
+    "./routes/post/[id].tsx": $17,
   },
   islands: {
     "./islands/AdminPanel.tsx": $$0,

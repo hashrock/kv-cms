@@ -7,7 +7,7 @@ import { getUserBySession } from "🛠️/db.ts";
 import { AdminPage } from "@/components/AdminPage.tsx";
 import { Nav } from "@/components/Nav.tsx";
 import { Layout } from "@/components/Layout.tsx";
-import TextArea from "@/islands/TextArea.tsx";
+import { EditorForm } from "@/components/EditorForm.tsx";
 
 async function put(user: User, id: string, form: FormData) {
   if (!id) {
@@ -84,30 +84,8 @@ export default function Home(props: PageProps<Data>) {
     <AdminPage user={props.data?.user}>
       <Layout left={nav}>
         <div class="p-8">
-          <form
-            class="flex flex-col"
-            action={`/admin/post/${post.id}`}
-            method="POST"
-          >
-            <div>
-              <input
-                class="w-full px-3 py-2  border-1 rounded text-2xl"
-                type="text"
-                name="title"
-                value={post.title}
-              />
-            </div>
-            <div>
-              <TextArea value={post.body} />
-            </div>
-            <input type="hidden" name="_method" value="PUT" />
-            <input type="hidden" value={post.id} />
-            <input
-              type="submit"
-              value="Update"
-              class="mt-1 inline-block cursor-pointer px-3 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
-            />
-          </form>
+          <h1 class="text-2xl">Edit post</h1>
+          {post && <EditorForm post={post} />}
 
           <form
             action={`/admin/post/${post.id}`}
