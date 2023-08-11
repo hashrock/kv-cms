@@ -45,7 +45,7 @@ export default function PostList(
   useEffect(() => {
     (async () => {
       const post = await fetch("/api/" + collection).then((res) => res.json());
-      setPosts(post);
+      setPosts(post.slice().reverse());
     })();
   }, []);
 
