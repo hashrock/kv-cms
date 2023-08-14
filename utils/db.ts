@@ -18,6 +18,25 @@ export async function setUserWithSession(user: User, session: string) {
     .commit();
 }
 
+export async function listUser() {
+  const iter = await kv.list<User>({ prefix: ["users"] });
+  const users: User[] = [];
+  for await (const item of iter) {
+    users.push(item.value);
+  }
+  return users;
+}
+
+export async function updateUser(user: User) {
+  await kv.set(["users", user.id], user);
+  await kv.set(["users_by_login", user.login], user);
+}
+
+export async function deleteUser(id: string) {
+  await kv.delete(["users", id]);
+  await kv.delete(["users_by_login", id]);
+}
+
 export async function getUserBySession(session: string) {
   const res = await kv.get<User>(["users_by_session", session]);
   return res.value;

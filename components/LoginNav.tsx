@@ -16,8 +16,13 @@ function Header(props: { user?: User }) {
       {props.user
         ? (
           <div class="flex gap-2 justify-end">
-            <span class="text-gray-900 font-medium">
+            <span class="text-gray-100 font-medium">
               {props.user.name}
+            </span>
+            <span>
+              (
+              {props.user.role} -{"  "}{props.user.status}
+              )
             </span>
 
             <a class="text-blue-300 hover:text-blue-400" href="/auth/signout">

@@ -2,12 +2,16 @@ export interface State {
   session: string | undefined;
 }
 
+export type UserRole = "admin" | "editor" | "user" | "guest";
+export type UserStatus = "active" | "inactive" | "pending";
+
 export interface User {
   id: string;
   login: string;
   name: string;
   avatarUrl: string;
-  editor: boolean;
+  role: UserRole;
+  status: UserStatus;
 }
 
 export interface Post {

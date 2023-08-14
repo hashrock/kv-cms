@@ -14,6 +14,7 @@ export function Nav(props: PageProps) {
       href: "/admin/image",
       current: props.current === "image",
     },
+    { name: "Users", href: "/admin/user", current: props.current === "user" },
     // {
     //   name: "Pages",
     //   href: "/admin/page",
