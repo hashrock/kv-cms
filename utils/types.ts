@@ -2,7 +2,7 @@ export interface State {
   session: string | undefined;
 }
 
-export type UserRole = "admin" | "editor" | "user" | "guest";
+export type UserRole = "admin" | "user" | "guest";
 export type UserStatus = "active" | "inactive" | "pending";
 
 export interface User {

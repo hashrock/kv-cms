@@ -24,24 +24,72 @@ export async function handler(req: Request, ctx: HandlerContext<Data, State>) {
   return ctx.render({ user, users });
 }
 
+function UserRow(props: { user: User }) {
+  return (
+    <div class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-200 rounded-md">
+      <div class="flex items-center space-x-3">
+        <div class="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-primary-600">
+        </div>
+        <a
+          class="flex items-center hover:underline"
+          href={`/admin/user/${props.user.id}`}
+        >
+          <img
+            class="w-8 h-8 rounded-full"
+            src={props.user.avatarUrl}
+            alt=""
+          />
+          <div class="ml-4">{props.user.name}</div>
+        </a>
+      </div>
+      <div class="flex items-center space-x-2">
+        <div class="text-sm font-medium text-gray-900">{props.user.role}</div>
+        <div class="text-sm text-gray-500">{props.user.status}</div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home(props: PageProps<Data>) {
   const nav = <Nav current="user" />;
   return (
     <AdminPage user={props.data?.user}>
       <Layout left={nav}>
-        <div class="p-8">
-          {props.data?.users.map((user) => (
-            <div class="mb-4">
-              <div class="mb-2 text-lg font-bold">
-                <a href={`/admin/user/${user.id}`}>
-                  {user.name}
-                </a>
-              </div>
-              <div>
-                Role: {user.role} Status:{user.status}
-              </div>
-            </div>
-          ))}
+        <div class="p-8 space-y-16">
+          <div class="space-y-4">
+            <h2 class="text-xl">Admin users</h2>
+
+            <p>
+              Admin users have access to all admin pages, and can create and
+              edit
+            </p>
+
+            {props.data?.users.filter((u) => u.role === "admin").map((user) => (
+              <UserRow user={user} />
+            ))}
+          </div>
+          <div class="space-y-4">
+            <h2 class="text-xl">Editors</h2>
+
+            <p>
+              Editors can create and edit pages, but cannot access admin pages.
+            </p>
+
+            {props.data?.users.filter((u) => u.role === "user").map((user) => (
+              <UserRow user={user} />
+            ))}
+          </div>
+
+          <div class="space-y-4">
+            <h2 class="text-xl">Guests</h2>
+            <p>
+              Guests cannot view, create or edit pages.
+            </p>
+
+            {props.data?.users.filter((u) => u.role === "guest").map((user) => (
+              <UserRow user={user} />
+            ))}
+          </div>
         </div>
       </Layout>
     </AdminPage>

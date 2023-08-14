@@ -1,5 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
-import { getUserById, setUserWithSession } from "🛠️/db.ts";
+import { getUserById, listUser, setUserWithSession } from "🛠️/db.ts";
 import { getAuthenticatedUser } from "🛠️/github.ts";
 import { handleCallback } from "kv_oauth";
 import { User } from "🛠️/types.ts";
@@ -9,6 +9,8 @@ export const handler: Handlers = {
   async GET(req) {
     const { response, tokens, sessionId } = await handleCallback(req, client);
     const ghUser = await getAuthenticatedUser(tokens!.accessToken);
+
+    const isFirstUser = (await listUser()).length === 0;
 
     const userInDb = await getUserById(String(ghUser.id));
 
@@ -27,8 +29,8 @@ export const handler: Handlers = {
         name: ghUser.name,
         avatarUrl: ghUser.avatar_url,
         login: ghUser.login,
-        role: "guest",
-        status: "pending",
+        role: isFirstUser ? "admin" : "guest",
+        status: isFirstUser ? "active" : "pending",
       };
       await setUserWithSession(user, sessionId);
     }

@@ -40,7 +40,8 @@ export const handler: Handlers<Data, State> = {
 
     const title = form.get("title")?.toString() ?? "";
     const about = form.get("about")?.toString() ?? "";
-    await setConfig({ title, about });
+    const demoMode = form.get("demoMode")?.toString() ?? "";
+    await setConfig({ title, about, demoMode: demoMode === "on" });
 
     return redirect("/admin/");
   },
@@ -84,6 +85,17 @@ export default function Home(props: PageProps<Data>) {
                   value={props.data?.config.about}
                 >
                 </textarea>
+
+                <div>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="demoMode"
+                      checked={props.data?.config.demoMode}
+                    />
+                    Enable demo mode - Allow view / edit posts without approval
+                  </label>
+                </div>
 
                 <div>
                   <input
